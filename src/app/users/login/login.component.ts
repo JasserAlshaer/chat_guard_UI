@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
+import { UsService } from '../us.service';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
   @ViewChild('subscribeModel', { static: false }) childModal?: ModalDirective;
-  constructor(private spinner: NgxSpinnerService,public totstr:ToastrService) {}
+  constructor(private spinner: NgxSpinnerService,public totstr:ToastrService,public service :UsService) {}
+  email:string="";
+  phone:string="";
   name:string="";
+  password:string="";
+  email2:string="";
+  password2:string="";
+  birthDate:Date=new Date();
+
   ngOnInit(): void {
     this.spinner.show();
 
@@ -33,11 +41,30 @@ export class LoginComponent implements OnInit {
   }
 
   Login(){
-    this.childModal?.show();
-  }
+      const login={
+        "email":this.email2,
+        "password":this.password2
+      };
 
+      this.service.LoginInSystem(login);
+
+  }
+  RegisterNewAccount(){
+    const account={
+      "email":this.email2,
+      "password":this.password2,
+      "userName":this.name,
+      "phone":this.phone,
+      "birthDate":this.birthDate,
+      "fullName":this.name
+    };
+
+    this.service.Register(account);
+  }
+  ColseDilog(){
+    this.childModal?.hide();
+  }
   Register(){
     this.childModal?.show();
   }
-
 }

@@ -7,6 +7,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms'; 
+import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [],
@@ -16,14 +18,17 @@ import { FormsModule } from '@angular/forms';
     NgxSpinnerModule,
     ToastrModule.forRoot(),
     ModalModule.forRoot(),
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports:[
     ToastrModule,
     NgxSpinnerModule,
     ModalModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ]
 })
 export class SharedModule { }

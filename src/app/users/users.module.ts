@@ -5,14 +5,15 @@ import { UsersRoutingModule } from './users-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from '../shared/shared.module';
 import { MainComponent } from './main/main.component';
-import { SearchComponent } from './search/search.component';
+
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     MainComponent,
-    SearchComponent
+    NavbarComponent
   ],
   imports: [
     CommonModule,

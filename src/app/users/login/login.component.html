@@ -1,51 +1,24 @@
 <section>
-
-
 <div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-form validate-form">
-					
-					
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz" >
-						
-                        <input class="input100" type="text" name="email">
+            <input class="input100" type="text" name="email"  [(ngModel)]="email2"  placeholder="example@domain.com">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Email</span>
+						<span class="label-input100"></span>
 					</div>
-					
-					
-					<div class="wrap-input100 validate-input" data-validate="Password is required" >
-						
-                        <input class="input100" type="password" name="pass">
+					<div class="wrap-input100 validate-input" data-validate="Password is required" >	
+          <input class="input100" type="password" name="pass"  [(ngModel)]="password2"  placeholder="**************">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Password</span>
 					</div>
-
-					<div class="flex-sb-m w-full p-t-3 p-b-32">
-						
-
-						<div>
-							<a href="#" class="txt1">
-								Forgot Password?
-							</a>
-						</div>
-					</div>
-			
-
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" (click)="Login()">
-							Login
-						</button>
+						<button class="login100-form-btn" (click)="Login()">Login</button>
 					</div>
-
 					<div class="login100-form-social flex-c-m" style="margin-top: 19px;">
-						<button class="login100-form-btn" (click)="Register()">
-							Register
-						</button>
+						<button class="login100-form-btn" (click)="Register()">Register</button>
 					</div>
 				</div>
-
 				<div class="login100-more" style="background-image: url('../../../assets/Style/images/286.jpg');">
 				</div>
 			</div>
@@ -58,28 +31,60 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 id="dialog-sizes-name1" class="modal-title pull-left">Reset Password</h4>
+          <h4 id="dialog-sizes-name1" class="modal-title pull-left label" style="margin:10px ;">Create Account</h4>
         </div>
         <div class="modal-body" style="padding:20px;">
           <div class="form-group mb-3">
+            <label class="label" for="password">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                 Full Name 
+            </label>
+          <input type="email" class="input100" style="padding: 5px; border: 2px solid #35858B;" name="name" placeholder="Name"  [(ngModel)]="name" required>
+        </div>
+          <div class="form-group mb-3">
               <label class="label" for="Email">
-                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
                   Email 
               </label>
-            <input type="email" class="form-control" name="Email" placeholder="Email" [(ngModel)]="name" required>
+            <input type="email" class="input100"  style="padding: 5px; border: 2px solid #35858B;" name="Email" placeholder="Email" [(ngModel)]="email" required>
           </div>
+
           <div class="form-group mb-3">
-              <label class="label" for="password">
-                  <i class="fa fa-lock" aria-hidden="true"></i>
-                  New Password 
-              </label>
-            <input type="email" class="form-control" name="password" placeholder="Password"  [(ngModel)]="name" required>
-          </div>
+            <label class="label" for="password">
+                 <i class="fa fa-phone"></i>
+                 Phone
+            </label>
+          <input type="text" class="input100"  style="padding: 5px; border: 2px solid #35858B;" name="password" placeholder="Phone"  [(ngModel)]="phone" required>
+        </div>
+       
+          <div class="form-group mb-3">
+            <label class="label" for="password">
+              <i class="fa fa-calendar"></i>
+                Birth Date 
+            </label>
+          <input  class="input100" type="date" name="date"  style="padding: 5px; border: 2px solid #35858B;"  placeholder="14/11/2014"  [(ngModel)]="birthDate" required>
+         </div>
+        <div class="form-group mb-3">
+          <label class="label" for="password">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+              Password 
+          </label>
+        <input type="email" class="input100"  style="padding: 5px; border: 2px solid #35858B;" name="password" placeholder="Password"  [(ngModel)]="password" required>
+       </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-sm btn-success" >Reset Password</button>
-          <button class="btn btn-sm btn-danger" >Close</button>
+          
+            <button class="btn btn-md btn-success" style="width: 10%; margin: 20px; padding: 5px; background-color: red;"
+            (click)="ColseDilog()"
+            >Close</button>
+
+		        <button class="btn btn-md btn-success" style="width: 35%; padding: 5px;  background-color: green; margin: 20px;"
+             (click)="RegisterNewAccount()" >Create Account </button>
         </div>
       </div>
     </div>
   </div> 
+
+
+
+ 

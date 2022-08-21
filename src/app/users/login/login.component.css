@@ -29,8 +29,11 @@
   .form{
     left: 22%;
     width: 70%;
-    top: 13%;
-    height: 500px;
+    top: 3%;
+    height: 650px;
     padding: 25px;
     margin: 25px;
+  }
+  .label{
+    color: #35858B;
   }

@@ -9,10 +9,19 @@ import { UsService } from '../us.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-
+  message:any="";
   constructor(private spinner: NgxSpinnerService,public totstr:ToastrService,public service :UsService) {}
 
   ngOnInit(): void {
+  }
+
+  SendText(){
+    if(this.message==""){
+      this.totstr.warning('Please Enter Text')
+     }else{
+        
+       this.service.SearchForNewUser(this.message);
+     }
   }
 
 }

@@ -37,8 +37,6 @@ export class UsService {
       this.ngxSpinner.hide();
     })
   }
-  
-
   Register(object:any){
     this.ngxSpinner.show();
     this.http.post('http://localhost:3025/api/Main/CreateNewAccounts',object).subscribe((res: any) => {
@@ -54,10 +52,40 @@ export class UsService {
       this.ngxSpinner.hide();
     })
   }
-
   LogoutFromSystem(email:string){
     this.ngxSpinner.show();
     this.http.post('http://localhost:3025/api/Main/CloseSystem',email).subscribe((res: any) => {
+      if (res) {
+        this.toastr.success('Done');
+        this.ngxSpinner.hide();
+      } else {
+        this.toastr.error('Failed')
+        this.ngxSpinner.hide();
+      }
+    }, (error) => {
+      this.toastr.error('Failed Logout')
+      this.ngxSpinner.hide();
+    })
+  }
+  SearchForNewUser(searchText:string){
+    this.ngxSpinner.show();
+    this.http.post('http://localhost:3025/api/Main/SearchForUser',searchText).subscribe((res: any) => {
+      if (res) {
+        this.toastr.success('Done');
+        this.ngxSpinner.hide();
+      } else {
+        this.toastr.error('Failed')
+        this.ngxSpinner.hide();
+      }
+    }, (error) => {
+      this.toastr.error('Failed Logout')
+      this.ngxSpinner.hide();
+    })
+  }
+
+  SendMessage(message:any){
+    this.ngxSpinner.show();
+    this.http.post('http://localhost:3025/api/Main/SendMassage',message).subscribe((res: any) => {
       if (res) {
         this.toastr.success('Done');
         this.ngxSpinner.hide();

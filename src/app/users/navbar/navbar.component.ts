@@ -11,6 +11,7 @@ import { UsService } from '../us.service';
 })
 export class NavbarComponent implements OnInit {
   token:String|any="";
+  searchFileds:any="";
 constructor(private spinner: NgxSpinnerService,public totstr:ToastrService,public service :UsService) {}
 
 
@@ -26,6 +27,15 @@ constructor(private spinner: NgxSpinnerService,public totstr:ToastrService,publi
         if(data.Email){
            this.service.LogoutFromSystem(data.Email); 
         }
+  }
+
+  Search(){
+    if(this.searchFileds==""){
+         this.totstr.warning('Please Enter Text')
+    }else{
+      this.service.SearchForNewUser(this.searchFileds);
+    }
+
   }
 
 

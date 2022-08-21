@@ -7,8 +7,8 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <form class="d-flex" style="margin-left: 645px;">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width:350px;">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <input class="form-control me-2" type="search" [(ngModel)]="searchFileds" placeholder="Search" aria-label="Search" style="width:350px;">
+          <button class="btn btn-outline-success" type="submit" (click)="Search()">Search</button>
           <button class="btn btn-outline-danger" type="submit" style="margin-left: 15px;"
           (click)="Logout()"
           >Logout</button>

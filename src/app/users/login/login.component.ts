@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
   email2:string="";
   password2:string="";
   birthDate:Date=new Date();
+  image:string="";
+  files: any[]=[];
 
   ngOnInit(): void {
     this.spinner.show();
@@ -39,7 +41,6 @@ export class LoginComponent implements OnInit {
       
     }, 3000);
   }
-
   Login(){
       const login={
         "email":this.email2,
@@ -56,7 +57,8 @@ export class LoginComponent implements OnInit {
       "userName":this.name,
       "phone":this.phone,
       "birthDate":this.birthDate,
-      "fullName":this.name
+      "fullName":this.name,
+      "profileImage":this.image
     };
 
     this.service.Register(account);
@@ -66,5 +68,17 @@ export class LoginComponent implements OnInit {
   }
   Register(){
     this.childModal?.show();
+  }
+  onFileChange(event: any) {
+    const reader = new FileReader();
+  
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
+        this.image = reader.result as string;    
+      };
+    }
   }
 }

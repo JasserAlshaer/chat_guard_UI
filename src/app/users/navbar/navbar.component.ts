@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import jwtDecode from 'jwt-decode';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { UsService } from '../us.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-navbar',
@@ -10,11 +11,12 @@ import { UsService } from '../us.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  token:String|any="";
-  searchFileds:any="";
+
+  @ViewChild('subscribeModel', { static: false }) childModal?: ModalDirective;
 constructor(private spinner: NgxSpinnerService,public totstr:ToastrService,public service :UsService) {}
 
-
+token:String|any="";
+searchFileds:string="";
   ngOnInit(): void {
 
   }
@@ -22,19 +24,45 @@ constructor(private spinner: NgxSpinnerService,public totstr:ToastrService,publi
   Logout(){
    
         this.token=localStorage.getItem('token');
-        let data:any|undefined = jwtDecode(this.token); 
-
-        if(data.Email){
-           this.service.LogoutFromSystem(data.Email); 
-        }
+        let data:any|undefined = jwtDecode(this.token);
+        debugger
+        console.log(this.token);
+        this.service.LogoutFromSystem(data.email); 
+       
   }
 
   Search(){
     if(this.searchFileds==""){
          this.totstr.warning('Please Enter Text')
+         
     }else{
-      this.service.SearchForNewUser(this.searchFileds);
+       this.service.SearchForNewUser(this.searchFileds);
+     
+       this.childModal?.show();
+      
     }
+
+  }
+
+  Disapper(){
+    this.childModal?.hide();
+  }
+  CloseDialog(){
+    this.childModal?.hide();
+  }
+  OpenConservaitions(userId:number){
+
+  }
+
+  CreateConservations(){
+    const conserv={
+      "Title":"",
+      "FirstUserId":"",
+      "SecondUserId":"",
+      "FirstUserView":"Active",
+      "SecondUserView":"Active"
+
+    };
 
   }
 

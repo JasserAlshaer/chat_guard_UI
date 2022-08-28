@@ -4,15 +4,72 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" style="float: right; margin-left: 650px;">
 
-        <form class="d-flex" style="margin-left: 645px;">
-          <input class="form-control me-2" type="search" [(ngModel)]="searchFileds" placeholder="Search" aria-label="Search" style="width:350px;">
+      
+          <input class="form-control me-2" type="text" [(ngModel)]="searchFileds" placeholder="Search"  style="width:350px;">
           <button class="btn btn-outline-success" type="submit" (click)="Search()">Search</button>
           <button class="btn btn-outline-danger" type="submit" style="margin-left: 15px;"
           (click)="Logout()"
-          >Logout</button>
-        </form>
+          >Logout
+        </button>
+       
       </div>
     </div>
 </nav>
+<div bsModal #subscribeModel="bs-modal" class="modal form" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left label" style="margin:10px ;">Search Results</h4>
+        <span class="badge " ></span>
+        <button type="button" class="btn btn-danger" (click)="Disapper()">
+          close 
+        </button>
+      </div>
+      <div class="modal-body" style="padding:20px;">
+          <div class="row" *ngFor="let suggest of this.service.suggestedUser">
+            <div *ngIf="suggest.ProfileImage!=null;">
+              <img class="col-3 img" src="{{suggest.ProfileImage}}"   alt="...">
+            </div>
+            
+        
+              <img class="col-3 img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo5_-6DH8hlGHiArRkzKF1SSmEWEuSAAonOnfBH4Q&s"   alt="...">
+              <h2 class="col-3 text-center ik">{{suggest.userName}}</h2>
+              <button type="button" class="col-6 btn  btn-outline-success but" (click)="OpenConservaitions(suggest.userId)">
+                Start Conservaitions 
+              </button>
+          </div>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+<!-- Model For Start Conservations -->
+<div bsModal #conservations="bs-modal" class="modal form" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left label" style="margin:10px ;">Start New Conservaitions</h4>
+        <span class="badge " ></span>
+        <button type="button" class="btn btn-danger" (click)="CloseDialog()">
+          close 
+        </button>
+      </div>
+      <div class="modal-body" style="padding:20px;">
+          <div class="row" >
+              <button type="button" class="col-6 btn  btn-outline-success but" (click)="CreateConservations()">
+                 Send 
+              </button>
+          </div>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div> 

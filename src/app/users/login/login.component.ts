@@ -52,8 +52,8 @@ export class LoginComponent implements OnInit {
   }
   RegisterNewAccount(){
     const account={
-      "email":this.email2,
-      "password":this.password2,
+      "email":this.email,
+      "password":this.password,
       "userName":this.name,
       "phone":this.phone,
       "birthDate":this.birthDate,
@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
     };
 
     this.service.Register(account);
+    this.childModal?.hide();
   }
   ColseDilog(){
     this.childModal?.hide();

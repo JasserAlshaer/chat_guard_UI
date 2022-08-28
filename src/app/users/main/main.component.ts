@@ -23,5 +23,4 @@ export class MainComponent implements OnInit {
        this.service.SearchForNewUser(this.message);
      }
   }
-
 }

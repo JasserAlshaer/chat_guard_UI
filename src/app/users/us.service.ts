@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { contentDTO } from './Entites/contentDTO';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,9 @@ export class UsService {
   token:String|any="";
   suggestedUser:any[]=[];
   analyzeResult:number=0;
+  myContentData:Array<contentDTO>= new Array <contentDTO>();
+  userId:number=0;
+
   constructor(public http:HttpClient,public ngxSpinner:NgxSpinnerService,public toastr:ToastrService
     ,public router:Router) { }
   //calling with api 
@@ -27,11 +32,10 @@ export class UsService {
         localStorage.setItem('token',res)
         this.toastr.success('Login Success');
         this.router.navigate(['main']);
-        //let data:any|undefined = jwtDecode(this.token); 
         this.toastr.success('Done');
         this.ngxSpinner.hide();
       } else {
-        this.toastr.error('Failed')
+        this.toastr.error('Failed Login')
         this.ngxSpinner.hide();
       }
     }, (error) => {
@@ -117,6 +121,7 @@ export class UsService {
         'token':this.headersWithToken
         })
     }
+          
     this.ngxSpinner.show();
     this.http.get('http://localhost:3025/api/Main/AnalyzeMassage?msg='+message,header).subscribe((res: any) => {
       if (res) {
@@ -133,7 +138,31 @@ export class UsService {
     })
   }
 
-  
+  GetMyAccountContenctAndData(){
+    this.headersWithToken=localStorage.getItem('token')
+    var header = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'token':this.headersWithToken
+        })
+    }
+    let data:any|undefined = jwtDecode(this.token); 
+    this.userId=data.userId;
+    this.ngxSpinner.show();
+    this.http.get('http://localhost:3025/api/Main/GetMyOwnContent?userID='+1,header).subscribe((res: any) => {
+      if (res) {
+        this.toastr.success('Get Data ');
+        console.log(res);
+        this.ngxSpinner.hide();     
+      } else {
+        this.toastr.error('Failed Data')
+        this.ngxSpinner.hide();
+      }
+    }, (error) => {
+      this.toastr.error('Failed Logout')
+      this.ngxSpinner.hide();
+    })
+  }
 
 
 }

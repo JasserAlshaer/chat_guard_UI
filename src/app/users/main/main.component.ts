@@ -13,8 +13,12 @@ export class MainComponent implements OnInit {
   constructor(private spinner: NgxSpinnerService,public totstr:ToastrService,public service :UsService) {}
 
   ngOnInit(): void {
+   this.GetData();
   }
 
+  GetData(){
+    this.service.GetMyAccountContenctAndData();
+  }
   SendText(){
     if(this.message==""){
       this.totstr.warning('Please Enter Text')

@@ -25,15 +25,13 @@ searchFileds:string="";
    
         this.token=localStorage.getItem('token');
         let data:any|undefined = jwtDecode(this.token);
-        debugger
-        console.log(this.token);
         this.service.LogoutFromSystem(data.email); 
        
   }
 
   Search(){
     if(this.searchFileds==""){
-         this.totstr.warning('Please Enter Text')
+         this.totstr.warning('Please Enter A Text')
          
     }else{
        this.service.SearchForNewUser(this.searchFileds);

@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   password2:string="";
   birthDate:Date=new Date();
   image:string="";
-  files: any[]=[];
+//  files: any[]=[];
 
   ngOnInit(): void {
     this.spinner.show();

@@ -12,12 +12,9 @@ import jwtDecode from 'jwt-decode';
 export class UsService {
 
   headersWithToken:String|any="";
-  token:String|any="";
   suggestedUser:any[]=[];
   analyzeResult:number=0;
-  myContentData:Array<contentDTO>= new Array <contentDTO>();
-  userId:number=0;
-
+  myContentData:any[]=[];
   constructor(public http:HttpClient,public ngxSpinner:NgxSpinnerService,public toastr:ToastrService
     ,public router:Router) { }
   //calling with api 
@@ -99,10 +96,18 @@ export class UsService {
     })
   }
   SendMessage(message:any){
+    this.headersWithToken=localStorage.getItem('token')
+    var header = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'token':this.headersWithToken
+        })
+    }
     this.ngxSpinner.show();
-    this.http.post('http://localhost:3025/api/Main/SendMassage',message).subscribe((res: any) => {
+    this.http.post('http://localhost:3025/api/Main/SendMassage',message,header).subscribe((res: any) => {
       if (res) {
-        this.toastr.success('Done');
+        //this.toastr.success('Done');
+        this.GetMyAccountContenctAndData();
         this.ngxSpinner.hide();
       } else {
         this.toastr.error('Failed')
@@ -146,20 +151,18 @@ export class UsService {
         'token':this.headersWithToken
         })
     }
-    let data:any|undefined = jwtDecode(this.token); 
-    this.userId=data.userId;
+    let data:any|undefined = jwtDecode(this.headersWithToken); 
     this.ngxSpinner.show();
-    this.http.get('http://localhost:3025/api/Main/GetMyOwnContent?userID='+1,header).subscribe((res: any) => {
+    this.http.get('http://localhost:3025/api/Main/GetMyOwnContent?userID='+data.UserId,header).subscribe((res: any) => {
       if (res) {
-        this.toastr.success('Get Data ');
-        console.log(res);
+        this.myContentData=res;
         this.ngxSpinner.hide();     
       } else {
         this.toastr.error('Failed Data')
         this.ngxSpinner.hide();
       }
     }, (error) => {
-      this.toastr.error('Failed Logout')
+      this.toastr.error(error.message)
       this.ngxSpinner.hide();
     })
   }

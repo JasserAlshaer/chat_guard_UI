@@ -37,3 +37,11 @@
   .label{
     color: #35858B;
   }
+  .inputField{
+    padding: 5px;
+    border: 2px solid #35858B;
+  }
+  .inputField :focus{
+    padding: 5px;
+     border: 2px solid #35858B;
+  }

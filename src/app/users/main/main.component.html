@@ -1,8 +1,8 @@
 
 <app-navbar></app-navbar>
-<div class="container-fluid">
+<div class="container-fluid" style="height:220px">
 <h3 class=" text-center"></h3>
-<div class="messaging">
+<div class="messaging" >
       <div class="inbox_msg">
         <div class="inbox_people">
           <div class="headind_srch">
@@ -10,14 +10,26 @@
               <h4>Conservations</h4>
             </div>
           </div>
-          <div class="inbox_chat">
+
+          <div class="inbox_chat" *ngFor="let conser of this.service.myContentData;let i=index;" (click)="LoadMessage(i,conser)">
             <div class="chat_list">
               <div class="chat_people">
                 <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                 <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
+                  <h5>{{conser.partnerProfile.userName}}
+                    <span class="chat_date">{{conser.conservation.lastActiviation}}</span>
+                    <span>
+                      <svg  *ngIf="this.currentIndex == i" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                      </svg>
+                      <svg *ngIf="this.currentIndex != i" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                      </svg>
+                    </span>
+                  </h5>
+                  <p>{{conser.messages[conser.messages.length-1].text}}</p>
                 </div>
               </div>
             </div>
@@ -25,59 +37,63 @@
         </div>
         <div class="mesgs">
           <div class="msg_history">
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg" dir="ltr">
-                  <div class="dropdown">
+            <div *ngFor="let mass of this.selectedMessageList;let i = index;">
 
-                    <p style="display: inline;">Test which is a new approach to have all solutions
-                      
-                    </p>
-                    <button class="dropbtn">...</button>
-                    <div class="dropdown-content">
+              <div class="incoming_msg" *ngIf="this.currentConservsation.secondUserId == mass.senderId">
+                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="received_msg">
+                  <div class="received_withd_msg" dir="ltr">
+                    <div class="dropdown">
+  
+                      <p style="display: inline;">
+                        {{mass.text}}
+                      </p>
+                      <button class="dropbtn">...</button>
+                      <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                      </div>
+                    </div>
+                    <br>
+                    <span class="time_date">{{mass.sendAt}}</span>
+                  </div>
+                  
+                   
+                </div>
+                
+              </div>
+              <div class="outgoing_msg" *ngIf="this.currentConservsation.firstUserId == mass.senderId" >
+                <div class="sent_msg">
+                  <div class="dropdown2">
+  
+                   
+                    <button class="dropbtn2">...</button>
+                    <div class="dropdown-content2">
                       <a href="#">Link 1</a>
                       <a href="#">Link 2</a>
                       <a href="#">Link 3</a>
                     </div>
+                    <p style="display: inline;">
+                      {{mass.text}}                     
+                    </p>
                   </div>
                   <br>
-                  <span class="time_date"> 11:01 AM    |    June 9</span>
+                  <span class="time_date">{{mass.sendAt}}</span>
+                 
+                  
                 </div>
                 
-                 
               </div>
-              
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <div class="dropdown2">
-
-                 
-                  <button class="dropbtn2">...</button>
-                  <div class="dropdown-content2">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                  </div>
-                  <p style="display: inline;">Test which is a new approach to have all solutions
-                    
-                  </p>
-                </div>
-                <br>
-                <span class="time_date"> 11:01 AM    |    June 9</span>
-               
-                
-              </div>
-              
             </div>
 
           </div>
-          <div class="type_msg">
+
+          <div class="type_msg" *ngIf="this.isMass">
             <div class="input_msg_write">
               <input type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="message" />
               <button class="msg_send_btn" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" (click)="SendNewMassage()" width="24" height="24" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
                   </svg>
             </button>

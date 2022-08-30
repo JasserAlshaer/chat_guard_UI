@@ -114,15 +114,18 @@ img{ max-width:100%;}
   width: 100%;
 }
 
-.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+.type_msg {border: 1px solid #000;position: relative; margin-top: 70px;}
 .msg_send_btn {
   background: #05728f none repeat scroll 0 0;
   border: medium none;
   border-radius: 50%;
   color: #fff;
+  padding:5px;
   cursor: pointer;
   font-size: 17px;
   height: 33px;
+  margin-right: 12px;
+  margin-bottom: 9px;
   position: absolute;
   right: 0;
   top: 11px;
@@ -130,7 +133,7 @@ img{ max-width:100%;}
 }
 .messaging { padding: 0 0 50px 0;}
 .msg_history {
-  height: 516px;
+  height: 400px;
   overflow-y: auto;
 }
 /* Dropdown Button */

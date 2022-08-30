@@ -117,6 +117,7 @@ export class UsService {
       this.toastr.error('Failed Logout')
       this.ngxSpinner.hide();
     })
+    this.GetMyAccountContenctAndData();
   }
   AnalyzeMessage(message:any){
     this.headersWithToken=localStorage.getItem('token')
@@ -142,7 +143,6 @@ export class UsService {
       this.ngxSpinner.hide();
     })
   }
-
   GetMyAccountContenctAndData(){
     this.headersWithToken=localStorage.getItem('token')
     var header = {
@@ -166,6 +166,47 @@ export class UsService {
       this.ngxSpinner.hide();
     })
   }
-
+  UpdateMessageViewAndLabel(messageupdater:any){
+    this.headersWithToken=localStorage.getItem('token')
+    var header = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'token':this.headersWithToken
+        })
+    }
+    let data:any|undefined = jwtDecode(this.headersWithToken); 
+    this.ngxSpinner.show();
+    this.http.post('http://localhost:3025/api/Main/UpdateMassageViewAndLabel',messageupdater,header).subscribe((res: any) => {
+      if (res) {
+          
+      } else {
+        this.toastr.error('Failed Data')
+        this.ngxSpinner.hide();
+      }
+    }, (error) => {
+      this.toastr.error(error.message)
+      this.ngxSpinner.hide();
+    })
+  }
+  ConseravitionStarting(con:any){
+    this.headersWithToken=localStorage.getItem('token')
+    var header = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'token':this.headersWithToken
+        })}
+    this.ngxSpinner.show();
+    this.http.post('http://localhost:3025/api/Main/StartConservations',con,header).subscribe((res: any) => {
+      if (res) {
+        this.ngxSpinner.hide();
+      } else {
+        this.toastr.error('Failed Data')
+        this.ngxSpinner.hide();
+      }
+    }, (error) => {
+      this.toastr.error(error.message)
+      this.ngxSpinner.hide();
+    })
+  }
 
 }

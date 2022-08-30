@@ -14,11 +14,15 @@ export class NavbarComponent implements OnInit {
 
   @ViewChild('subscribeModel', { static: false }) childModal?: ModalDirective;
 constructor(private spinner: NgxSpinnerService,public totstr:ToastrService,public service :UsService) {}
-
+userid:number=0;
 token:String|any="";
 searchFileds:string="";
   ngOnInit(): void {
-
+    this.token=localStorage.getItem('token')
+    let data:any|undefined = jwtDecode(this.token); 
+    if(data){
+      this.userid=data.UserId;
+    }
   }
 
   Logout(){
@@ -52,18 +56,21 @@ searchFileds:string="";
 
   }
 
-  CreateConservations(){
-    const conserv={
-      "Title":"",
-      "FirstUserId":"",
-      "SecondUserId":"",
-      "FirstUserView":"Active",
-      "SecondUserView":"Active"
-
-    };
-
+  getFirstName(str:string):string{
+    const myArray = str.split(" ");
+    console.log(myArray[0])
+    return myArray[0];
   }
 
-
-
+  CreateConservations(secondId:number){
+    const conserv={
+      "Title":"Default Conservaition",
+      "FirstUserId":this.userid,
+      "SecondUserId":secondId,
+      "FirstUserView":"Active",
+      "SecondUserView":"Active"
+    };
+    this.service.ConseravitionStarting(conserv)
+    this.childModal?.hide();
+  }
 }

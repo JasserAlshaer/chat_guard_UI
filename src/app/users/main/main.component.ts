@@ -33,8 +33,11 @@ export class MainComponent implements OnInit {
   
   }
 
+ 
+
   GetData(){
     this.service.GetMyAccountContenctAndData();
+    this.LoadMessage(this.currentIndex, this.currentConservsation);
   }
   SendText(){
     if(this.message==""){
@@ -58,7 +61,7 @@ export class MainComponent implements OnInit {
       this.currentConservsation=object.conservation;
       this.isMass=true;
     }
-    this.ngOnInit();
+    
   }
   
   SendNewMassage(){
@@ -79,7 +82,60 @@ export class MainComponent implements OnInit {
     }
     this.service.SendMessage(mass);
     this.selectedMessageList=this.service.myContentData[this.currentIndex].messages;
-    this.ngOnInit();
+  }
+  /*checkMessageView():boolean{
+    return false;
+  }
+  CheckMessageLabel(currentMassage:any):boolean{
+    if(this.userid != currentMassage.senderId){
+      //incomming massage
+      if(currentMassage.senderId == currentMassage.firstUserId){
+        if(currentMassage.secondUserView=="Deleted"){
+          return false;
+        }else{
+          return true;
+        }
+      }else if(currentMassage.senderId == currentMassage.secondUserId){
+        if(currentMassage.firstUserView=="Deleted"){
+          return false;
+        }else{
+          return true;
+        }
+      }else {
+        return false;
+      }
+    }else{
+      //sended
+      if(currentMassage.senderId == currentMassage.firstUserId){
+        if(currentMassage.secondUserView=="Deleted"){
+          return false;
+        }else{
+          return true;
+        }
+      }else if(currentMassage.senderId == currentMassage.secondUserId){
+        if(currentMassage.firstUserView=="Deleted"){
+          return false;
+        }else{
+          return true;
+        }
+      }else {
+        return false;
+      }
+    }
+  }*/
+  MassageUpdater(viewFlag:number,labelFlag:number,messageId:number,isFU:boolean){
+    const updater={
+      "viewFlagId":viewFlag,
+      "labelID":labelFlag,
+      "userId":this.userid,
+      "messageId":messageId,
+      "isFirstUser":isFU
+    }
+    this.service.UpdateMessageViewAndLabel(updater)
+  }
+
+  PressToAnalyzeMessage(m:any){  
+    this.service.AnalyzeMessage(m);
   }
 
 }

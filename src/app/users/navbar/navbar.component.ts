@@ -73,4 +73,8 @@ searchFileds:string="";
     this.service.ConseravitionStarting(conserv)
     this.childModal?.hide();
   }
+
+  ReloadWindow(){
+    window.location.reload();
+  }
 }

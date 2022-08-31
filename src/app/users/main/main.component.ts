@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,HostListener} from '@angular/core';
 import { Router } from '@angular/router';
+import * as signalR from "@microsoft/signalR"
 import jwtDecode from 'jwt-decode';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -19,13 +20,29 @@ export class MainComponent implements OnInit {
   currentConservsation:any={};
   userid:number=0;
   isMass:boolean=false;
+  public hubConnection: signalR.HubConnection | undefined;
+  connected:any | undefined = 1;
   constructor(private spinner: NgxSpinnerService,public totstr:ToastrService
-    ,public router:Router,public service :UsService) {}
+    ,public router:Router,public service :UsService,public toastr:ToastrService) {}
 
   ngOnInit(): void {
     this.headersWithToken=localStorage.getItem('token')
     let data:any|undefined = jwtDecode(this.headersWithToken); 
     if(data){
+      this.hubConnection=new signalR.HubConnectionBuilder().withUrl("http://localhost:13862/notisocke").build();
+    if(this.hubConnection.state === signalR.HubConnectionState.Disconnected && this.connected === 1 ){
+      console.log("this is the state inside f",this.hubConnection.state);
+      this.hubConnection
+      .start()
+      .then(() => console.log('Connection started'))
+      .catch(err => console.log('Error while starting connection: ' + err))
+      this.connected=2;
+     }
+
+    this.hubConnection.on("ReceiveOne",(data)=>{
+         this.GetData();
+    });
+
       this.GetData();
       this.userid=data.UserId;
     }else{
@@ -33,7 +50,11 @@ export class MainComponent implements OnInit {
     }
   
   }
-
+  
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event:Event) {
+      //this.service.LogoutFromSystem();
+  }
  
 
   GetData(){
@@ -82,7 +103,9 @@ export class MainComponent implements OnInit {
       secondUserView:"Active"
     }
     this.service.SendMessage(mass);
-    this.selectedMessageList=this.service.myContentData[this.currentIndex].messages;
+    
+    //this.selectedMessageList=this.service.myContentData[this.currentIndex].messages;
+    this.GetData();
   }
   /*checkMessageView():boolean{
     return false;
@@ -133,10 +156,12 @@ export class MainComponent implements OnInit {
       "isFirstUser":isFU
     }
     this.service.UpdateMessageViewAndLabel(updater)
+    this.GetData();
   }
 
   PressToAnalyzeMessage(m:any){  
     this.service.AnalyzeMessage(m);
+    this.GetData();
   }
 
 }

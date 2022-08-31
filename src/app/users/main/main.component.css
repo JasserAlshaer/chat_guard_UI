@@ -215,7 +215,7 @@ img{ max-width:100%;}
 .dropdown-content {
   display: none;
   position: absolute;
-  left: 12%;
+  left: 6%;
   bottom: 8%;
   background-color: #f1f1f1;
   min-width: 160px;

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { contentDTO } from './Entites/contentDTO';
 import jwtDecode from 'jwt-decode';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,8 +16,12 @@ export class UsService {
   suggestedUser:any[]=[];
   analyzeResult:number=0;
   myContentData:any[]=[];
+
   constructor(public http:HttpClient,public ngxSpinner:NgxSpinnerService,public toastr:ToastrService
-    ,public router:Router) { }
+    ,public router:Router) { 
+
+
+    }
   //calling with api 
 
 

@@ -60,7 +60,7 @@ export class UsService {
     debugger
     this.http.get('http://localhost:3025/api/Main/CloseSystem?email='+email+"").subscribe((res: any) => {
       if (res) {
-        this.toastr.success('Done');
+        this.toastr.warning('Logout');
         this.ngxSpinner.hide();
         this.router.navigate(['']);
       } else {

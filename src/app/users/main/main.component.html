@@ -1,112 +1,130 @@
 
 <app-navbar></app-navbar>
-<div class="container-fluid" style="height:220px">
-<h3 class=" text-center"></h3>
-<div class="messaging" >
-      <div class="inbox_msg">
-        <div class="inbox_people">
-          <div class="headind_srch">
-            <div class="recent_heading">
-              <h4>Conservations</h4>
-            </div>
-          </div>
 
-          <div class="inbox_chat" >
-            <div class="chat_list">
-              <div class="chat_people" style="margin-top: 25px;" *ngFor="let conser of this.service.myContentData;let i=index;" (click)="LoadMessage(i,conser)">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>{{conser.partnerProfile.userName}}
-                    <span class="chat_date"></span>
-                    <span>
-                      <svg  *ngIf="this.currentIndex == i" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                      </svg>
-                      <svg *ngIf="this.currentIndex != i" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
-                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
-                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
-                      </svg>
-                    </span>
-                  </h5>
-                  <p>{{conser.conservation.lastActiviation}}</p>
 
-                  <br>
-                  <br>
-                  <hr>
-                  
-                </div>
-                
-              </div>
-              
-            </div>
-          </div>
-        </div>
-        <div class="mesgs">
-          <div class="msg_history">
-            <div *ngFor="let mass of this.selectedMessageList;let i = index;">
-
-              <div class="incoming_msg" style="direction: ltr;" *ngIf="this.currentConservsation.secondUserId == mass.senderId &&mass.secondUserView=='Active'">
-                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="received_msg">
-                  <div class="received_withd_msg" dir="ltr">
-                    <div class="dropdown">
-  
-                      <p style="display: inline;">
-                        {{mass.text}}
-                      </p>
-                      <button class="dropbtn">...</button>
-                      <div class="dropdown-content">
-                        <a (click)="PressToAnalyzeMessage(mass)">Analyze Message</a>
-                        <a (click)="MassageUpdater(0,1,mass.messageId,false)">Mark As Spam </a>
-                        <a (click)="MassageUpdater(1,0,mass.messageId,false)">Delete Message</a>
+<div class="container-fluid" >
+  <div class="row" >
+    <div class="col-md-4">
+      <div class="container-fluid" style="height:40px">
+        <h3 class=" text-center"></h3>
+        <div class="messaging" >
+              <div class="inbox_msg">
+                <div class="inbox_people">
+                  <div class="headind_srch">
+                    <div class="recent_heading">
+                      <h4>Conservations</h4>
+                    </div>
+                  </div>
+        
+                  <div class="inbox_chat" >
+                    <div class="chat_list">
+                      <div class="chat_people" style="margin-top: 25px;" *ngFor="let conser of this.service.myContentData;let i=index;" (click)="LoadMessage(i,conser)">
+                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" width="40" height="40" alt="sunil"> </div>
+                        <div class="chat_ib">
+                          <h5>{{conser.partnerProfile.userName}}
+                            <span class="chat_date"></span>
+                            <span>
+                              <svg  *ngIf="this.currentIndex == i" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                              </svg>
+                              <svg *ngIf="this.currentIndex != i" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                                <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                                <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                              </svg>
+                            </span>
+                          </h5>
+                          <p>{{conser.conservation.lastActiviation}}</p>
+        
+                          <br>
+                          <br>
+                          <hr>
+                          
+                        </div>
                         
                       </div>
-                    </div>
-                    <br>
-                    <span class="time_date">{{mass.sendAt}}</span>
-                  </div>
-                  
-                   
-                </div>
-                
-              </div>
-              <div class="outgoing_msg" style="direction: rtl;" *ngIf="this.currentConservsation.firstUserId == mass.senderId &&mass.firstUserView=='Active'" >
-                <div class="sent_msg">
-                  <div class="dropdown2">
-  
-                    <p style="display: inline;">
-                      {{mass.text}}                     
-                    </p>
-                    <button class="dropbtn2">...</button>
-                    <div class="dropdown-content2">
-                      <a (click)="MassageUpdater(1,0,mass.messageId,true)">Delete Message</a>
                       
                     </div>
-                   
                   </div>
-                  <br>
-                  <span class="time_date">{{mass.sendAt}}</span>
-                 
-                  
                 </div>
-                
+               
               </div>
-            </div>
-
-          </div>
-
-          <div class="type_msg" *ngIf="this.isMass">
-            <div class="input_msg_write">
-              <input type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="message" />
-              <button class="msg_send_btn" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" (click)="SendNewMassage()" width="24" height="24" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
-                  </svg>
-            </button>
-            </div>
           </div>
         </div>
+    </div>
+      <div class="col-md-8" >
+          <div class="panel panel-primary border" style="height:460px; padding:31px; margin-top: 50px; ">
+              <div class="panel-body">
+                  <ul class="chat">
+                    <div *ngFor="let mass of this.selectedMessageList;let i = index;">
+                      <li class="left clearfix alert alert-dark" style="display: inline-block; width: 100%;" *ngIf="this.currentConservsation.secondUserId == mass.senderId &&mass.secondUserView=='Active'">
+                        
+                        <div class="chat-body clearfix" >
+                            <div class="header" dir="rtl">
+                                <strong class="primary-font" style="text-align: right; float: right;"> {{mass.text}}</strong> <small class="pull-right text-muted">
+                                    <span class="glyphicon glyphicon-time"></span></small>
+                            </div>
+                            <p  style="text-align: right; float: right;">
+                              {{mass.text}}
+                              
+                            </p>
+
+                            <div class="dropdown">
+                              <button  class="dropbtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                  <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                                </svg>
+                              </button>
+                              <div id="myDropdown" class="dropdown-content">
+                                <a (click)="MassageUpdater(1,0,mass.messageId,true)">Delete Message</a>
+                              </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="right clearfix alert alert-primary" >
+                      <div class="chat-body clearfix">
+                          <div class="header">
+                              <small class=" text-muted"><span class="glyphicon glyphicon-time"></span></small>
+                              <strong class="pull-right primary-font">{{mass.text}}</strong>
+                          </div>
+                          <p style="display: inline-block;">
+                            {{mass.text}}
+                          </p>
+
+                          <div class="dropdown" style="float: right;">
+                            <button  class="dropbtn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                              </svg>
+                            </button>
+                            <div id="myDropdown" class="dropdown-content">
+                              <a (click)="PressToAnalyzeMessage(mass)">Analyze Message</a>
+                              <a (click)="MassageUpdater(0,1,mass.messageId,false)">Mark As Spam </a>
+                              <a (click)="MassageUpdater(1,0,mass.messageId,false)">Delete Message</a>
+                            </div>
+                          </div>
+                      </div>
+                  </li>
+                    </div>
+
+
+                   
+                  </ul>
+              </div>
+              <div class="panel-footer">
+                <div class="input-group border">
+                    <input id="btn-input" type="text" style="height: 50px;" placeholder="Type a message" [(ngModel)]="message" class="form-control input-lg" placeholder="Type your message here..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning btn-sm border" id="btn-chat">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="28" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16" (click)="SendNewMassage()">
+                            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                          </svg>    
+                        </button>
+                    </span>
+                </div>
+            </div>
+          </div>
+
       </div>
   </div>
 </div>

@@ -124,7 +124,7 @@ export class UsService {
     })
     this.GetMyAccountContenctAndData();
   }
-  AnalyzeMessage(message:any){
+  AnalyzeMessage(message:any):number{
     this.headersWithToken=localStorage.getItem('token')
     var header = {
       headers: new HttpHeaders({
@@ -133,20 +133,25 @@ export class UsService {
         })
     }
           
-    this.ngxSpinner.show();
+    //this.ngxSpinner.show();
     this.http.get('http://localhost:3025/api/Main/AnalyzeMassage?msg='+message,header).subscribe((res: any) => {
       if (res) {
-        this.toastr.success('Done');
+        this.ngxSpinner.hide();
+        //this.toastr.success('Done');
         this.analyzeResult=res;
-        this.ngxSpinner.hide();
+        return this.analyzeResult;
+      
       } else {
-        this.toastr.error('Failed')
+        //this.toastr.error('Failed')
         this.ngxSpinner.hide();
+        return this.analyzeResult;
       }
     }, (error) => {
-      this.toastr.error('Failed Logout')
+      //this.toastr.error('Failed Logout')
       this.ngxSpinner.hide();
+      return this.analyzeResult;
     })
+    return this.analyzeResult;
   }
   GetMyAccountContenctAndData(){
     this.headersWithToken=localStorage.getItem('token')
@@ -183,6 +188,7 @@ export class UsService {
     this.ngxSpinner.show();
     this.http.post('http://localhost:3025/api/Main/UpdateMassageViewAndLabel',messageupdater,header).subscribe((res: any) => {
       if (res) {
+          this.GetMyAccountContenctAndData();
           
       } else {
         this.toastr.error('Failed Data')

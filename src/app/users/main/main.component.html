@@ -56,9 +56,9 @@
           <div class="panel panel-primary border" style="height:450px; padding:31px; margin-top: 50px; overflow-x: hidden;">
               <div class="panel-body">
                   <ul class="chat">
-                    <div *ngFor="let mass of this.selectedMessageList;let i = index;">
+                    <div *ngFor="let mass of this.selectedMessageList;let i = index;" >
                       <li class="left clearfix alert alert-dark" style="display: inline-block; width: 100%;"
-                       *ngIf="this.currentConservsation.secondUserId == mass.senderId &&mass.secondUserView=='Active'">
+                       *ngIf="this.currentConservsation.secondUserId == mass.senderId && mass.secondUserView=='Active'">
                         
                         <div class="chat-body clearfix" >
                             <div class="header" dir="rtl">
@@ -82,13 +82,15 @@
                             </div>
                         </div>
                     </li>
-                    <li class="right clearfix alert alert-primary" >
+                    <li 
+                        [ngClass]="mass.firstUserLabel=='Spam' || mass.secondUserLabel=='Spam' ? 'right clearfix alert alert-danger' : 'right clearfix alert alert-primary'"
+                        *ngIf="this.currentConservsation.firstUserId == mass.senderId && mass.firstUserView=='Active'">>
                       <div class="chat-body clearfix">
                           <div class="header">
                               <small class=" text-muted"><span class="glyphicon glyphicon-time"></span></small>
-                              <strong class="pull-right primary-font">{{mass.text}}</strong>
+                              <strong class="pull-right primary-font" style="color: red;">{{PressToAnalyzeMessage(mass.text)}} % it's spam</strong>
                           </div>
-                          <p style="display: inline-block;">
+                          <p style="display: inline-block;" >
                             {{mass.text}}
                           </p>
 
@@ -99,7 +101,7 @@
                               </svg>
                             </button>
                             <div id="myDropdown" class="dropdown-content">
-                              <a (click)="PressToAnalyzeMessage(mass)">Analyze Message</a>
+                              <!--<a (click)="PressToAnalyzeMessage(mass)">Analyze Message</a>-->
                               <a (click)="MassageUpdater(0,1,mass.messageId,false)">Mark As Spam </a>
                               <a (click)="MassageUpdater(1,0,mass.messageId,false)">Delete Message</a>
                             </div>
@@ -130,3 +132,21 @@
       </div>
   </div>
 </div>
+<!-- Model For Analyze Message 
+<div bsModal #conservations="bs-modal" class="modal form" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left label" style="margin:10px ;">Start New Conservaitions</h4>
+        <span class="badge " ></span>
+        <button type="button" class="btn btn-danger" (click)="CloseDialog()">
+          close 
+        </button>
+      </div>
+      <div class="modal-body" style="padding:20px;">
+         
+      </div>
+      
+    </div>
+  </div>
+</div>  -->
